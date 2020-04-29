@@ -1,0 +1,46 @@
+const Ebook = require("../models/Ebook");
+const ITEMS_PER_PAGE = 3;
+
+exports.getHome = (req, res) => {
+  const page = +req.query.page || 1;
+  let totalItems;
+  Ebook.find()
+    .countDocuments()
+    .then((numEbooks) => {
+      totalItems = numEbooks;
+      return Ebook.find()
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
+    .then((ebooks) => {
+      res.render("home", {
+        ebooks: ebooks,
+        ebookcover: ebooks.ebookcover,
+        //user accessed after login
+        name: req.user.name,
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+      });
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+exports.getEbook = (req, res) => {
+  const ebookId = req.params.id;
+  Ebook.findById(ebookId)
+    .then((ebook) => {
+      console.log(ebook.ebookfile)
+      res.render("ebook", {
+        ebook: ebook,
+        name: req.user.name,
+      });
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
