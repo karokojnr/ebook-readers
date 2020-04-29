@@ -21,16 +21,15 @@
 				<div class="row d-flex">
 					<div class="col-lg-8 px-md-5 py-5">
 						<div class="row pt-md-4">
-							<iframe id="pdf-render"
-								src="https://ebook-publisher.herokuapp.com/images/uploads/ebooks/<%= ebook.ebookfile %>"
-								width="1000px" height="600px" style="border: none;">
+							<iframe id="pdf-render" src="<%= ebook.ebookfile %>" width="1000px" height="600px"
+								style="border: none;">
 								<!-- <canvas id="pdf-render" width="1000px" height="600px"> -->
 								<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"
 									integrity="sha256-O6polm3ZRTZEOAneYbvsKty3c3KRcDf20McwtlCga5s="
 									crossorigin="anonymous"></script>
 								<script>
 									// simple.js
-									const url = "https://ebook-publisher.herokuapp.com/images/uploads/ebooks/<%= ebook.ebookfile %>";
+									const url = "<%= ebook.ebookfile %>";
 									let pdfDoc = null,
 										pageNum = 1,
 										pageIsRendering = false,
@@ -123,6 +122,7 @@
 								</script>
 								<!-- </canvas> -->
 							</iframe>
+
 						</div><!-- END-->
 					</div>
 					<div class="col-xl-4 sidebar ftco-animate bg-light pt-5">
