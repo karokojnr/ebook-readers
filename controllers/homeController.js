@@ -20,7 +20,7 @@ exports.getHome = (req, res) => {
     .then((ebooks) => {
       res.render("home", {
         ebooks: ebooks,
-        ebookDesc: ebook.description.substring(0, 50),
+        // ebookDesc: ebooks.description.substring(0, 50),
         ebookcover: ebooks.ebookcover,
         //user accessed after login
         name: req.user.name,
