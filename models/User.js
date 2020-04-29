@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isPublisher: {
+    type: String,
+    default: "YES",
+  },
   date: {
     type: Date,
     default: Date.now,
