@@ -1,6 +1,11 @@
 const Ebook = require("../models/Ebook");
 const ITEMS_PER_PAGE = 3;
 
+function trimString(passedString) {
+  var theString = passedString.substring(0, 150);
+  return theString;
+}
+
 exports.getHome = (req, res) => {
   const page = +req.query.page || 1;
   let totalItems;
@@ -15,6 +20,7 @@ exports.getHome = (req, res) => {
     .then((ebooks) => {
       res.render("home", {
         ebooks: ebooks,
+        ebookDesc: ebook.description.substring(0, 50),
         ebookcover: ebooks.ebookcover,
         //user accessed after login
         name: req.user.name,
@@ -34,7 +40,7 @@ exports.getEbook = (req, res) => {
   const ebookId = req.params.id;
   Ebook.findById(ebookId)
     .then((ebook) => {
-      console.log(ebook.ebookfile)
+      console.log(ebook.ebookfile);
       res.render("ebook", {
         ebook: ebook,
         name: req.user.name,
