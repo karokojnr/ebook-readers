@@ -40,7 +40,6 @@ exports.getEbook = (req, res) => {
   const ebookId = req.params.id;
   Ebook.findById(ebookId)
     .then((ebook) => {
-      console.log(ebook.ebookfile);
       res.render("ebook", {
         ebook: ebook,
         name: req.user.name,
