@@ -9,20 +9,20 @@ function trimString(passedString) {
 exports.getHome = (req, res) => {
   const page = +req.query.page || 1;
   let totalItems;
-  Ebook.find()
+  // var ebooks = Ebook.find();
+
+  Ebook.find({ isApproved: "YES" })
     .countDocuments()
     .then((numEbooks) => {
       totalItems = numEbooks;
-      return Ebook.find()
+      return Ebook.find({ isApproved: "YES" })
         .skip((page - 1) * ITEMS_PER_PAGE)
         .limit(ITEMS_PER_PAGE);
     })
     .then((ebooks) => {
       res.render("home", {
         ebooks: ebooks,
-        // ebookDesc: ebooks.description.substring(0, 50),
         ebookcover: ebooks.ebookcover,
-        //user accessed after login
         name: req.user.name,
         currentPage: page,
         hasNextPage: ITEMS_PER_PAGE * page < totalItems,

@@ -5,6 +5,10 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
+    // if (req.user.isUser === "NO") {
+    //   req.flash("error_msg", "Your account has been suspended!");
+    //   res.redirect("/login");
+    // }
     req.flash("error_msg", "Please log in to view available eBooks");
     res.redirect("/login");
   },

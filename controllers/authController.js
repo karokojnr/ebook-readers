@@ -12,6 +12,7 @@ exports.getRegister = (req, res) => {
   res.render("register");
 };
 exports.postLogin = (req, res, next) => {
+  
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
